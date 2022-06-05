@@ -1,12 +1,15 @@
 import os
+import rlcompleter
 import requests
 
-def submit(rlz_file, t_code):
-    full_lesson_path = os.path.dirname(os.path.abspath(__file__))
-    user_file = f'{full_lesson_path}/{rlz_file}'
+def submit(t_code, rlz_file=''):
+    user_code = ''
+    if rlz_file:
+        full_lesson_path = os.path.dirname(os.path.abspath(__file__))
+        user_file = f'{full_lesson_path}/{rlz_file}'
 
-    with open(user_file, 'r') as u_file:
-        user_code = u_file.read()
+        with open(user_file, 'r') as u_file:
+            user_code = u_file.read()
 
     r = requests.post(
         'http://localhost:3002',
@@ -20,6 +23,5 @@ def submit(rlz_file, t_code):
 
 if __name__ == '__main__':
     submit(
-        'realization.sql',
         'de05030701'
     )
