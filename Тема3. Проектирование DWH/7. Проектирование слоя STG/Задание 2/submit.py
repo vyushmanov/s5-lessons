@@ -1,5 +1,5 @@
 import os
-import rlcompleter
+ 
 import requests
 
 def submit(t_code, rlz_file=''):
