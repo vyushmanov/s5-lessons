@@ -1,0 +1,12 @@
+.dockerignore
+.editorconfig
+.DS_Store
+
+LICENSE
+*.md
+
+env/
+venv/
+.idea/
+.git/
+logs/
