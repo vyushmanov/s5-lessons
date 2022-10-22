@@ -38,3 +38,24 @@ pip install -r requirements.txt
 Перед запуском тестов убедитесь что запущен контейнер.
 
 Если у Вас не установлен python 3.8 то самое время сделать это. 
+
+Поключние к БД:
+```
+  "host": "localhost",
+  "user": "jovyan",
+  "password": "jovyan"
+  "port": 15432,
+  "ssl": false,
+  "database": "de"
+```
+
+Metabase доступен по адресу http://localhost:3333/
+Для подключения с помощью Metabase к БД в контейнере укажите следующие параметры 
+```
+  "host": "de-pg-cr-af",
+  "user": "jovyan",
+  "password": "jovyan"
+  "port": 5432,
+  "ssl": false,
+  "database": "de"
+```
