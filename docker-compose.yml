@@ -1,4 +1,4 @@
-version: '2'
+version: '3.9'
 
 services:
   de-pg-cr-af:
@@ -8,7 +8,7 @@ services:
       - 3002:3002
       - 15432:5432
     volumes:
-      - mydb:/var/lib/postgresql
+      - s5t4postgresql:/var/lib/postgresql
       - ${AIRFLOW_DAGS_DIR:-./dags}:/lessons/dags
 
   metabase:
@@ -17,4 +17,4 @@ services:
       - 3333:3000
 
 volumes:
-  mydb:
+  s5t4postgresql:
