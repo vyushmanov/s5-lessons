@@ -59,3 +59,9 @@ Metabase доступен по адресу http://localhost:3333/
   "ssl": false,
   "database": "de"
 ```
+
+Airflow доступен по адресу http://localhost:3000/airflow
+```
+login: AirflowAdmin
+password: airflow_pass
+```
