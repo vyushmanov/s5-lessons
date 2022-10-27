@@ -12,14 +12,23 @@ cd s5-lessons
 ```shell script
 python3 -m venv venv
 ```
+или для Windows
+```shell script
+python -m venv venv
+```
+Проверить, что виртуальное окружение создано можно командой ls - в списке с файлов и директорий вы увидите директорию venv
 
 * Активируйте его:
 ```shell script
 source venv/bin/activate
 ```
-или в Windowns
+или в Windows
 ```shell script
 source venv/Scripts/activate
+```
+или альтернативный способ для Windows
+```shell script
+.\venv\Scripts\activate.bat
 ```
 
 * Обновите pip до последней версии:
