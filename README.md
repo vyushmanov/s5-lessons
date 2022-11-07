@@ -74,3 +74,17 @@ Airflow доступен по адресу http://localhost:3000/airflow
 login: AirflowAdmin
 password: airflow_pass
 ```
+
+Скачайте Mongo DB Compass c [официального сайта](https://www.mongodb.com/products/compass) или по ссылкам ниже:
+
+* [macOS arm64 (M1) (11.0+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-darwin-arm64.dmg)
+
+* [macOS 64-bit (10.14+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-darwin-x64.dmg)
+
+* [RedHat 64-bit (7+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1.x86_64.rpm)
+
+* [Ubuntu 64-bit (16.04+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass_1.33.1_amd64.deb)
+
+* [Windows 64-bit (7+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-win32-x64.exe)
+
+* [Windows 64-bit (7+) (MSI)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-win32-x64.msi)
