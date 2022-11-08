@@ -14,7 +14,7 @@ def say_hello(log: logging.Logger) -> None:
     schedule_interval='0/15 * * * *',
     start_date=pendulum.datetime(2022, 5, 5, tz="UTC"),
     catchup=False,
-    tags=['sprint5', 'example'],
+    tags=['sprint5', 'example', 'hello_world'],
     is_paused_upon_creation=False
 )
 def hello_world_dag():
