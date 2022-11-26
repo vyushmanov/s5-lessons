@@ -35,10 +35,16 @@ class RestaurantLoader:
                 wf_setting = EtlSetting(
                     id=0,
                     workflow_key=self.WF_KEY,
-                    workflow_settings={self.LAST_LOADED_TS_KEY: datetime(2022, 1, 1)}
+                    workflow_settings={
+                        # JSON ничего не знает про даты. Поэтому записываем строку, которую будем кастить при использовании.
+                        # А в БД мы сохраним именно JSON.
+                        self.LAST_LOADED_TS_KEY: datetime(2022, 1, 1).isoformat()
+                    }
                 )
 
-            last_loaded_ts = wf_setting.workflow_settings[self.LAST_LOADED_TS_KEY]
+            last_loaded_ts_str = wf_setting.workflow_settings[self.LAST_LOADED_TS_KEY]
+            last_loaded_ts = datetime.fromisoformat(last_loaded_ts_str)
+            self.log.info(f"starting to load from last checkpoint: {last_loaded_ts}")
 
             load_queue = self.collection_loader.get_restaurants(last_loaded_ts, self._SESSION_LIMIT)
             self.log.info(f"Found {len(load_queue)} documents to sync from restaurants collection.")
@@ -57,5 +63,7 @@ class RestaurantLoader:
             wf_setting.workflow_settings[self.LAST_LOADED_TS_KEY] = max([t["update_ts"] for t in load_queue])
             wf_setting_json = json2str(wf_setting.workflow_settings)
             self.settings_repository.save_setting(conn, wf_setting.workflow_key, wf_setting_json)
+
+            self.log.info(f"Finishing work. Last checkpoint: {wf_setting_json}")
 
             return len(load_queue)
