@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 
 
 def say_hello(log: logging.Logger) -> None:
-    log.info("Hello World!!")
+    log.info("Hello Worlds!!")
 
 
 @dag(
