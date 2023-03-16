@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   de-pg-cr-af:
-    image: sindb/de-pg-cr-af:latest
+    image: cr.yandex/crp1r8pht0n0gl25aug1/de-pg-cr-af:latest
     ports:
       - 3000:3000
       - 3002:3002
