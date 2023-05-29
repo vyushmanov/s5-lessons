@@ -1,4 +1,4 @@
-# Спринт 5 #
+# Спринт 5
 
 * Скопируйте проект в директорию:
 ```shell script
@@ -88,3 +88,10 @@ password: airflow_pass
 * [Windows 64-bit (7+)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-win32-x64.exe)
 
 * [Windows 64-bit (7+) (MSI)](https://storage.yandexcloud.net/mongo-db-compass-1.3.3.1/mongodb-compass-1.33.1-win32-x64.msi)
+
+## Примечание
+При запуске контейнеров командой `docker compose up -d` создается волюм для сохранения состояния базы данных между запусками. При необходимости сброса состояния к исходному выполните слеующие шаги:
+- Остановите контейнеры: `docker compose down`.
+- Выведите список волюмов: `docker volume ls`. Должен быть волюм для 5 спринта под именем `s5-lessons_s5t4postgresql`.
+- Удалите волюм: `docker volume rm s5-lessons_s5t4postgresql`
+- Запустите контейнеры: `docker compose up -d`.
