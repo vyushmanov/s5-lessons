@@ -15,9 +15,9 @@ create table dds.dm_restaurants (
 	,active_to timestamp not null
 	);
 	
-drop table dds.dm_products;
+drop table dds.dm_products CASCADE;
 create table dds.dm_products (
-	id serial constraint dm_products_pkey primary key not null
+	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE)
 	,restaurant_id integer not null
 	,product_id varchar not null
 	,product_name varchar not null
@@ -25,10 +25,13 @@ create table dds.dm_products (
 		constraint dm_products_product_price_check check (product_price >= 0)
 	,active_from timestamp not null
 	,active_to timestamp not null
-	);
-	
+	,CONSTRAINT dm_products_pkey PRIMARY KEY (id)
+	);	
 alter table dds.dm_products
 add constraint dm_products_restaurant_id_fkey foreign key (restaurant_id) REFERENCES dds.dm_restaurants (id);
+ALTER TABLE dds.dm_products 
+ADD CONSTRAINT unique_products_history_check UNIQUE (restaurant_id, product_id, active_to);
+
 
 drop table dds.dm_timestamps;
 create table dds.dm_timestamps (
@@ -44,22 +47,26 @@ create table dds.dm_timestamps (
 	,date date not null
 	);
 
+drop table dds.dm_orders CASCADE;
 create table dds.dm_orders (
-	id serial constraint dm_orders_pkey primary key not null
+	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE)
 	,user_id integer not null
 	,restaurant_id integer not null
 	,timestamp_id integer not null
 	,order_key varchar not null
 	,order_status varchar not null
+	,CONSTRAINT dm_orders_pkey PRIMARY KEY (id)
 	);
-
 alter table dds.dm_orders
 add constraint dm_orders_user_id_fkey foreign key (user_id) REFERENCES dds.dm_users (id);
 alter table dds.dm_orders
 add constraint dm_orders_restaurant_id_fkey foreign key (restaurant_id) REFERENCES dds.dm_restaurants (id);
 alter table dds.dm_orders
 add constraint dm_orders_timestamp_id_fkey foreign key (timestamp_id) REFERENCES dds.dm_timestamps (id);
+alter table dds.dm_orders
+add constraint unique_dm_orders_order_key_check unique (order_key);
 
+drop table dds.fct_product_sales CASCADE;
 create table dds.fct_product_sales (
 	id serial constraint fct_product_sales_pkey primary key not null
 	,product_id integer not null
@@ -75,11 +82,12 @@ create table dds.fct_product_sales (
 	,bonus_grant numeric(14,2) not null default 0
 		constraint fct_product_sales_bonus_grant_check check (bonus_grant >= 0)
 	);
-
 alter table dds.fct_product_sales
 add constraint fct_product_sales_product_id_fkey foreign key (product_id) REFERENCES dds.dm_products (id);
 alter table dds.fct_product_sales
 add constraint fct_product_sales_order_id_fkey foreign key (order_id) REFERENCES dds.dm_orders (id);
+ALTER TABLE dds.fct_product_sales 
+ADD CONSTRAINT unique_fct_product_sales_check UNIQUE (product_id, order_id);
 
 
 drop table public.outbox;
